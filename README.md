@@ -1,5 +1,9 @@
 # Issen
 
+[![Build Status](https://travis-ci.org/tbpgr/issen.png?branch=master)](https://travis-ci.org/tbpgr/issen)
+[![Coverage Status](https://coveralls.io/repos/tbpgr/issen/badge.png)](https://coveralls.io/r/tbpgr/issen)
+[![Code Climate](https://codeclimate.com/github/tbpgr/issen.png)](https://codeclimate.com/github/tbpgr/issen)
+
 Issen is files and directories generator by Emmet-like syntax.
 
 ## Installation
