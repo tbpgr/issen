@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+require 'issen_core'
+require 'issen/version'
+require 'thor'
+
+module Issen
+  # = Issen CLI
+  class CLI < Thor
+    class_option :help, type: :boolean, aliases: '-h', desc: 'help message.'
+    class_option :version, type: :boolean, desc: 'version'
+
+    desc 'execute', 'generate files and directories generator by Emmet-like syntax'
+    def execute(*args)
+      input = args[0]
+      if input.nil? || input.empty?
+        puts 'nil or empty input is invalid'
+        return
+      end
+      Issen::Core.new.execute input
+    end
+
+    desc 'init', 'generate Issenfile'
+    def init
+      Issen::Core.new.init
+    end
+
+    desc 'version', 'version'
+    def version
+      p Issen::VERSION
+    end
+  end
+end
+
+Issen::CLI.start(ARGV)
