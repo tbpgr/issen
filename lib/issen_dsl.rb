@@ -8,14 +8,14 @@ module Issen
     # String Define
     [:output_dir].each do |f|
       define_method f do |value|
-        eval "@issen.#{f.to_s} = '#{value}'", binding
+        eval "@issen.#{f} = '#{value}'", binding
       end
     end
 
     # Array/Hash/Boolean Define
     [].each do |f|
       define_method f do |value|
-        eval "@issen.#{f.to_s} = #{value}", binding
+        eval "@issen.#{f} = #{value}", binding
       end
     end
 

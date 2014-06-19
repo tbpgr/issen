@@ -80,14 +80,14 @@ describe Issen::Core do
       end
 
       def case_before(c)
-        Dir.mkdir(TMP_ISSEN) unless File.exists?(TMP_ISSEN)
+        Dir.mkdir(TMP_ISSEN) unless File.exist?(TMP_ISSEN)
         Dir.chdir(TMP_ISSEN)
         File.open(Issen::Core::ISSEN_FILE, 'w:UTF-8') { |f|f.print c[:issenfile] }
       end
 
       def case_after(c)
         Dir.chdir('../')
-        return unless File.exists? TMP_ISSEN
+        return unless File.exist? TMP_ISSEN
         FileUtils.rm_rf("./#{TMP_ISSEN}")
       end
     end
