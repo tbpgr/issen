@@ -27,7 +27,7 @@ output_dir "output directory name"
       dsl = read_dsl
       output_dir = dsl.issen.output_dir
       create_root_dir(output_dir)
-      headings = to_heading(input, output_dir)
+      headings = create_files_and_dirs(input, output_dir)
     end
 
     private
@@ -43,23 +43,40 @@ output_dir "output directory name"
       Dir.mkdir(output_dir) unless Dir.exist? output_dir
     end
 
-    def to_heading(input, output_dir)
+    def create_files_and_dirs(input, output_dir)
       input_chars = input.chars
       level, word_ret, parent_dir, grand_parent_dir = 0, [], output_dir, output_dir
-      input_chars.each_with_index do |char, index|
-        key_word = char.in? %w(~ + -)
-        if key_word
-          word = word_ret.join
-          word_dup = word.dup
-          dir_file = create_file_dir(word, parent_dir)
-          parent_dir, grand_parent_dir = get_grand_and_parent(parent_dir, grand_parent_dir, word_dup, word, level, char)
-          word_ret = []
-        else
-          word_ret << char
-        end
+      input_chars.each do |char|
+        word_ret, parent_dir = create_each_files_and_dirs(
+              char, word_ret, parent_dir, grand_parent_dir, level)
       end
       word = word_ret.join
       create_file_dir(word, parent_dir)
+    end
+
+    def operator?(char)
+      char.in?(%w(~ + -))
+    end
+
+    def create_each_files_and_dirs(
+      char, word_ret, parent_dir, grand_parent_dir, level)
+      if operator?(char)
+        word_ret, parent_dir = apply_operator(
+          char, word_ret, parent_dir, grand_parent_dir, level)
+      else
+        word_ret << char
+      end
+      [word_ret, parent_dir]
+    end
+
+    def apply_operator(char, word_ret, parent_dir, grand_parent_dir, level)
+      word = word_ret.join
+      word_dup = word.dup
+      dir_file, word = create_file_dir(word, parent_dir)
+      parent_dir, grand_parent_dir = get_grand_and_parent(
+        parent_dir, grand_parent_dir, word_dup, word, level, char)
+      word_ret = []
+      [word_ret, parent_dir]
     end
 
     # rubocop:disable CyclomaticComplexity
@@ -69,10 +86,8 @@ output_dir "output directory name"
       when 0
         # not change
       when 1
-        if is_dir?(word_dup)
-          grand_parent_dir = parent_dir
-          parent_dir = "#{parent_dir}/#{word}"
-        end
+        grand_parent_dir, parent_dir = shift_dirs(
+          parent_dir, word, word_dup, grand_parent_dir)
       when -1
         parent_dir = grand_parent_dir
       end
@@ -80,20 +95,28 @@ output_dir "output directory name"
     end
     # rubocop:enable CyclomaticComplexity
 
+    def shift_dirs(parent_dir, word, word_dup, grand_parent_dir)
+      if is_dir?(word_dup)
+        [parent_dir, "#{parent_dir}/#{word}"]
+      else
+        [grand_parent_dir, parent_dir]
+      end
+    end
+
     def create_file_dir(word, parent_dir)
       is_dir = is_dir?(word)
-      dir_file = dir_file_name(word, parent_dir)
+      dir_file, word = dir_file_name(word, parent_dir)
       if is_dir
         Dir.mkdir(dir_file) unless Dir.exist? dir_file
       else
         File.open(dir_file, 'w:UTF-8') { |f|f.print '' } unless File.exist? dir_file
       end
-      dir_file
+      [dir_file, word]
     end
 
     def dir_file_name(word, parent_dir)
       word.gsub!(/^d_/, '')
-      "#{parent_dir}/#{word}"
+      ["#{parent_dir}/#{word}", word]
     end
 
     def is_dir?(word)
