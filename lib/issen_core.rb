@@ -62,6 +62,7 @@ output_dir "output directory name"
       create_file_dir(word, parent_dir)
     end
 
+    # rubocop:disable CyclomaticComplexity
     def get_grand_and_parent(parent_dir, grand_parent_dir, word_dup, word, level, char)
       level += char == '+' ? 0 : char == '~' ? 1 : -1
       case level
@@ -77,6 +78,7 @@ output_dir "output directory name"
       end
       [parent_dir, grand_parent_dir]
     end
+    # rubocop:enable CyclomaticComplexity
 
     def create_file_dir(word, parent_dir)
       is_dir = is_dir?(word)
