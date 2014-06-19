@@ -9,6 +9,5 @@ module Issen
     # output directory
     attr_accessor :output_dir
     validates :output_dir, presence: true
-
   end
 end
