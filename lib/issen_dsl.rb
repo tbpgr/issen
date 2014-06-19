@@ -2,6 +2,7 @@
 require 'issen_dsl_model'
 
 module Issen
+  # Dsl
   class Dsl
     attr_accessor :issen
 
