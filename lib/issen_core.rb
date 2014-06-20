@@ -131,7 +131,7 @@ output_dir "output directory name"
     end
 
     def to_head(heading, head_char)
-      heading.reduce([]) { |ret, value|ret << "#{head_char * value[:level]}#{value[:word]}" }.join("\n")
+      heading.reduce([]) { |a, e|a << "#{head_char * e[:level]}#{e[:word]}" }.join("\n")
     end
   end
 end
