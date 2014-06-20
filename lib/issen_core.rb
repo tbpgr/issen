@@ -27,7 +27,7 @@ output_dir "output directory name"
       dsl = read_dsl
       output_dir = dsl.issen.output_dir
       create_root_dir(output_dir)
-      headings = create_files_and_dirs(input, output_dir)
+      create_files_and_dirs(input, output_dir)
     end
 
     private
@@ -68,6 +68,7 @@ output_dir "output directory name"
       [word_ret, parent_dir]
     end
 
+    # rubocop:disable UselessAssignment
     def apply_operator(char, word_ret, parent_dir, grand_parent_dir, level)
       word = word_ret.join
       word_dup = word.dup
@@ -77,6 +78,7 @@ output_dir "output directory name"
       word_ret = []
       [word_ret, parent_dir]
     end
+    # rubocop:enable UselessAssignment
 
     # rubocop:disable CyclomaticComplexity, ParameterLists
     def get_grand_and_parent(parent_dir, grand_parent_dir, word_dup, word, level, char)
