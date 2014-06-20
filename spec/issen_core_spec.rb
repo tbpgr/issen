@@ -85,7 +85,7 @@ describe Issen::Core do
         File.open(Issen::Core::ISSEN_FILE, 'w:UTF-8') { |f|f.print c[:issenfile] }
       end
 
-      def case_after(c)
+      def case_after(c) # rubocop:disable UnusedMethodArgument
         Dir.chdir('../')
         return unless File.exist? TMP_ISSEN
         FileUtils.rm_rf("./#{TMP_ISSEN}")
