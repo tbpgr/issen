@@ -13,7 +13,7 @@ describe Issen::Core do
         output_dir: './tmp',
         input: 'd_hoge',
         expected_type: [:directory?],
-        expected: ['./tmp/hoge'],
+        expected: ['./tmp/hoge']
       },
       {
         case_no: 2,
@@ -22,7 +22,7 @@ describe Issen::Core do
         output_dir: './tmp',
         input: 'hoge.txt',
         expected_type: [:file?],
-        expected: ['./tmp/hoge.txt'],
+        expected: ['./tmp/hoge.txt']
       },
       {
         case_no: 3,
@@ -31,7 +31,7 @@ describe Issen::Core do
         output_dir: './tmp',
         input: 'd_hoge~hoge.txt',
         expected_type: [:directory?, :file?],
-        expected: ['./tmp/hoge', './tmp/hoge/hoge.txt'],
+        expected: ['./tmp/hoge', './tmp/hoge/hoge.txt']
       },
       {
         case_no: 4,
@@ -40,7 +40,7 @@ describe Issen::Core do
         output_dir: './tmp',
         input: 'd_hoge+hoge.txt',
         expected_type: [:directory?, :file?],
-        expected: ['./tmp/hoge', './tmp/hoge.txt'],
+        expected: ['./tmp/hoge', './tmp/hoge.txt']
       },
       {
         case_no: 5,
@@ -49,8 +49,8 @@ describe Issen::Core do
         output_dir: './tmp',
         input: 'd_hoge+d_hige~hige.txt-hoge.txt',
         expected_type: [:directory?, :directory?, :file?, :file?],
-        expected: ['./tmp/hoge', './tmp/hige', './tmp/hige/hige.txt', './tmp/hoge.txt'],
-      },
+        expected: ['./tmp/hoge', './tmp/hige', './tmp/hige/hige.txt', './tmp/hoge.txt']
+      }
     ]
 
     cases.each do |c|
