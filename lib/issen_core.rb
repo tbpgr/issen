@@ -78,7 +78,7 @@ output_dir "output directory name"
       [word_ret, parent_dir]
     end
 
-    # rubocop:disable CyclomaticComplexity
+    # rubocop:disable CyclomaticComplexity, ParameterLists
     def get_grand_and_parent(parent_dir, grand_parent_dir, word_dup, word, level, char)
       level = move_level(char, level)
       case level
@@ -92,7 +92,7 @@ output_dir "output directory name"
       end
       [parent_dir, grand_parent_dir]
     end
-    # rubocop:enable CyclomaticComplexity
+    # rubocop:enable CyclomaticComplexity, ParameterLists
 
     def move_level(char, level)
       case char
