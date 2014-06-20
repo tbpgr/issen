@@ -78,7 +78,7 @@ output_dir "output directory name"
       [word_ret, parent_dir]
     end
 
-    # rubocop:disable CyclomaticComplexity
+    # rubocop:disable CyclomaticComplexity, ParameterLists
     def get_grand_and_parent(parent_dir, grand_parent_dir, word_dup, word, level, char)
       level = move_level(char, level)
       case level
@@ -92,7 +92,7 @@ output_dir "output directory name"
       end
       [parent_dir, grand_parent_dir]
     end
-    # rubocop:enable CyclomaticComplexity
+    # rubocop:enable CyclomaticComplexity, ParameterLists
 
     def move_level(char, level)
       case char
@@ -103,7 +103,7 @@ output_dir "output directory name"
     end
 
     def shift_dirs(parent_dir, word, word_dup, grand_parent_dir)
-      if is_dir?(word_dup)
+      if directory?(word_dup)
         [parent_dir, "#{parent_dir}/#{word}"]
       else
         [grand_parent_dir, parent_dir]
@@ -111,9 +111,9 @@ output_dir "output directory name"
     end
 
     def create_file_dir(word, parent_dir)
-      is_dir = is_dir?(word)
+      is_directory = directory?(word)
       dir_file, word = dir_file_name(word, parent_dir)
-      if is_dir
+      if is_directory
         Dir.mkdir(dir_file) unless Dir.exist? dir_file
       else
         File.open(dir_file, 'w:UTF-8') { |f|f.print '' } unless File.exist? dir_file
@@ -126,7 +126,7 @@ output_dir "output directory name"
       ["#{parent_dir}/#{word}", word]
     end
 
-    def is_dir?(word)
+    def directory?(word)
       word.starts_with?('d_')
     end
 
