@@ -50,8 +50,7 @@ output_dir "output directory name"
         word_ret, parent_dir = create_each_files_and_dirs(
               char, word_ret, parent_dir, grand_parent_dir, level)
       end
-      word = word_ret.join
-      create_file_dir(word, parent_dir)
+      create_file_dir(word_ret.join, parent_dir)
     end
 
     def operator?(char)
@@ -81,7 +80,7 @@ output_dir "output directory name"
 
     # rubocop:disable CyclomaticComplexity
     def get_grand_and_parent(parent_dir, grand_parent_dir, word_dup, word, level, char)
-      level += char == '+' ? 0 : char == '~' ? 1 : -1
+      level = move_level(char, level)
       case level
       when 0
         # not change
@@ -94,6 +93,14 @@ output_dir "output directory name"
       [parent_dir, grand_parent_dir]
     end
     # rubocop:enable CyclomaticComplexity
+
+    def move_level(char, level)
+      case char
+      when '+' then level + 0
+      when '~' then level + 1
+      else          level - 1
+      end
+    end
 
     def shift_dirs(parent_dir, word, word_dup, grand_parent_dir)
       if is_dir?(word_dup)
