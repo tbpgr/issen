@@ -1,5 +1,6 @@
 # Issen
 
+[![Gem Version](https://badge.fury.io/rb/issen.svg)](http://badge.fury.io/rb/issen)
 [![Build Status](https://travis-ci.org/tbpgr/issen.png?branch=master)](https://travis-ci.org/tbpgr/issen)
 [![Coverage Status](https://coveralls.io/repos/tbpgr/issen/badge.png)](https://coveralls.io/r/tbpgr/issen)
 
